@@ -1,10 +1,6 @@
-// Edit this file after deploying the Apps Script (see README.md).
 window.APP_CONFIG = {
-  // The "Web app" URL from Apps Script > Deploy. It ends in /exec.
-  // API_URL: 'https://script.google.com/macros/s/AKfycbyIEN1a2ixHV_Cn6GkNSoIJGUKajV7tc_Wew8ggm2naaEkPF1qnms7_9oJbh5GNFvVy/exec',
   API_URL: 'https://script.google.com/macros/s/AKfycbyIEN1a2ixHV_Cn6GkNSoIJGUKajV7tc_Wew8ggm2naaEkPF1qnms7_9oJbh5GNFvVy/exec',
 
-  // Your Razorpay Payment Button IDs (they start with pl_).
   PAYMENT_BUTTON_IDS: {
     individual: 'pl_TtjKouKO5FpsAP',
     group: 'pl_TtjNZkZuJkSfL2'
