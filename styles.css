@@ -2698,7 +2698,12 @@ textarea {
   font-family: var(--font-body);
 }
 
-h1, h2, h3, h4, h5, h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
 .type-name,
 .hold-time,
 .summary .total dd {
@@ -2728,7 +2733,7 @@ h1 {
   border-color: rgba(231, 196, 119, 0.42);
 }
 
-.type input:checked + .type-body {
+.type input:checked+.type-body {
   border-color: var(--brass);
   background: linear-gradient(145deg, rgba(115, 29, 56, 0.92), rgba(64, 12, 31, 0.98));
   box-shadow: 0 0 0 2px rgba(231, 196, 119, 0.12), 0 12px 28px rgba(0, 0, 0, 0.25);
@@ -2763,6 +2768,7 @@ select option {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
@@ -2779,7 +2785,7 @@ select option {
   margin-bottom: 1.25rem;
 }
 
-.coaching-select > label {
+.coaching-select>label {
   display: block;
   margin-bottom: 0.65rem;
   color: var(--ink);
@@ -2800,11 +2806,9 @@ select option {
   appearance: none;
   -webkit-appearance: none;
 
-  background: linear-gradient(
-    135deg,
-    rgba(91, 24, 45, 0.96),
-    rgba(42, 8, 22, 0.98)
-  );
+  background: linear-gradient(135deg,
+      rgba(91, 24, 45, 0.96),
+      rgba(42, 8, 22, 0.98));
 
   color: var(--ink);
   border: 1px solid rgba(231, 196, 119, 0.38);
@@ -2868,4 +2872,187 @@ select option {
 
   font-size: 0.9rem;
   line-height: 1.6;
+}
+
+
+/* ---------- Teacher portrait ---------- */
+
+.teacher-photo {
+  position: relative;
+  width: min(100%, 440px);
+  aspect-ratio: 5 / 3;
+  margin: 0 0 1.6rem;
+  overflow: hidden;
+  border-radius: 24px;
+  border: 1px solid rgba(231, 196, 119, 0.45);
+  background: #350817;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.3);
+}
+
+.teacher-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+  transition: transform 0.6s ease;
+}
+
+.teacher-photo:hover img {
+  transform: scale(1.035);
+}
+
+.teacher-badge {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  padding: 9px 15px;
+  border: 1px solid rgba(255, 239, 200, 0.35);
+  border-radius: 999px;
+  background: rgba(26, 5, 13, 0.84);
+  color: var(--brass);
+  font-size: 0.82rem;
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+}
+
+/* ---------- Cleaner introductory heading ---------- */
+
+.brand {
+  font-size: 0.78rem;
+  line-height: 1.7;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brass) !important;
+  margin-bottom: 0.8rem !important;
+}
+
+.brand-divider {
+  padding-inline: 0.35rem;
+  opacity: 0.65;
+}
+
+.intro h1 {
+  max-width: 650px;
+  font-size: clamp(3rem, 6vw, 5rem);
+  line-height: 1;
+  letter-spacing: -0.045em;
+  margin-bottom: 0.7rem;
+}
+
+.intro .subtitle {
+  font-family: var(--font-body);
+  font-size: clamp(1.05rem, 2.4vw, 1.3rem);
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--brass) !important;
+  margin-bottom: 1.4rem !important;
+}
+
+/* ---------- Better description readability ---------- */
+
+.intro-description {
+  max-width: 62ch;
+  margin: 1.5rem 0;
+}
+
+.intro-description p {
+  color: var(--muted);
+  font-size: 0.98rem;
+  line-height: 1.85;
+  margin: 0 0 1rem;
+}
+
+.intro-description .description-lead {
+  color: var(--ink);
+  font-size: clamp(1.08rem, 2vw, 1.2rem);
+  line-height: 1.7;
+  font-weight: 500;
+  padding-left: 1rem;
+  border-left: 3px solid var(--brass);
+}
+
+.intro-description p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- Improved event facts ---------- */
+
+.facts {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-color: rgba(231, 196, 119, 0.32);
+}
+
+.facts > div {
+  padding: 1.1rem 0.9rem;
+  gap: 0.4rem;
+}
+
+.fact-k {
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.fact-v {
+  font-size: clamp(0.9rem, 1.4vw, 1.05rem);
+  overflow-wrap: anywhere;
+}
+
+/* ---------- Mobile alignment ---------- */
+
+@media (max-width: 999px) {
+  .teacher-photo {
+    width: min(100%, 520px);
+    aspect-ratio: 16 / 9;
+  }
+
+  .intro h1 {
+    max-width: 100%;
+  }
+
+  .intro-description {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .teacher-photo {
+    aspect-ratio: 4 / 3;
+    border-radius: 18px;
+  }
+
+  .brand {
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+  }
+
+  .intro h1 {
+    font-size: clamp(2.8rem, 12vw, 4rem);
+    line-height: 1.02;
+  }
+
+  .intro-description p {
+    font-size: 0.95rem;
+    line-height: 1.8;
+  }
+
+  .facts {
+    grid-template-columns: 1fr;
+  }
+
+  .facts > div {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .fact-v {
+    text-align: right;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .teacher-photo img {
+    transition: none;
+  }
 }
