@@ -3056,3 +3056,9 @@ select option {
     transition: none;
   }
 }
+
+
+#verify,
+#expired-verify {
+  display: none !important;
+}
