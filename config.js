@@ -6,8 +6,8 @@ window.APP_CONFIG = {
 
   // Your Razorpay Payment Button IDs (they start with pl_).
   PAYMENT_BUTTON_IDS: {
-    individual: 'pl_TaF6NBsPi45JJ4',
-    group: 'pl_TtJ2nkb0JpJkqR'
+    individual: 'pl_TtjKouKO5FpsAP',
+    group: 'pl_TtjNZkZuJkSfL2'
   },
 
   SLOT_REFRESH_MS: 8000,  // how often available slots are re-checked

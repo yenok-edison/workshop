@@ -867,6 +867,7 @@
       ['Date', dateLong(booking.date)],
       ['Your slot', range(booking.time, state.cfg.slotMinutes)],
       ['Fee', rs(booking.amount.base)],
+      [`Platform Fee (${Math.round(state.cfg.pfRate * 100)}%)`, rs(booking.amount.platform_fee)],
       [`GST (${Math.round(state.cfg.gstRate * 100)}%)`, rs(booking.amount.gst)],
       ['Total to pay', rs(booking.amount.total), 'total']
     ]);
@@ -1391,6 +1392,7 @@ async function pollStatus() {
       slotMinutes: 30,
       holdMinutes: 15,
       gstRate: 0.18,
+      pfRate: 0.05,
 
       types: {
         individual: {
@@ -1398,7 +1400,8 @@ async function pollStatus() {
           capacity: 1,
           base: 3000,
           gst: 540,
-          total: 3540,
+          platform_fee: 177,
+          total: 3717,
           start: '14:00',
           end: '18:00'
         },
@@ -1407,7 +1410,8 @@ async function pollStatus() {
           capacity: 40,
           base: 1500,
           gst: 270,
-          total: 1770,
+          platform_fee: 177,
+          total: 1947,
           start: '10:00',
           end: '13:00'
         }
@@ -1590,6 +1594,7 @@ async function pollStatus() {
             amount: {
               base: cfg.types[params.type].base,
               gst: cfg.types[params.type].gst,
+              platform_fee: cfg.types[params.type].platform_fee,
               total: cfg.types[params.type].total
             },
             holdUntil: new Date(db.bookings[id].holdEnd).toISOString(),
