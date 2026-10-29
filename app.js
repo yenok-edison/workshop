@@ -350,7 +350,7 @@
     if (state.type === 'group') {
       button.innerHTML =
         '<span class="when"><span class="t"></span>' +
-        `<span class="s">Group session, ${state.cfg.slotMinutes} min</span>` +
+        `<span class="s">Group session</span>` +
         '</span><span class="cap"><span class="bar-cap"><i></i></span>' +
         '<span class="left"></span></span>' + ban;
     } else {
@@ -361,16 +361,18 @@
     return button;
   }
 
+  
   function updateSlot(button, slot) {
     const group = state.type === 'group';
     const open = slot.status === 'open';
 
-    // range() already includes AM/PM. Do not append AM/PM again.
+    // Display the actual slot start and end times for group sessions.
     $('.t', button).textContent = group
-      ? range(slot.time, state.cfg.slotMinutes)
+      ? range(slot.time, state.cfg.types?.[state.type]?.slotMinutes || 180)
       : fmtTime(slot.time);
 
     button.disabled = !open;
+
     button.setAttribute(
       'aria-pressed',
       String(open && state.selected === slot.time)
@@ -403,16 +405,8 @@
         `${Math.round(taken / capacity * 100)}%`
       );
 
-      button.classList.toggle(
-        'low',
-        open && remaining <= 3
-      );
+      button.classList.toggle('low', open && remaining <= 3);
 
-      // $('.left', button).textContent = open
-      //   ? `${remaining} of ${capacity} spot${remaining === 1 ? '' : 's'} left`
-      //   : slot.status === 'full'
-      //     ? 'Full'
-      //     : 'Not available';
       $('.left', button).textContent = open
         ? 'Few seats left'
         : slot.status === 'full'
@@ -420,12 +414,13 @@
           : 'Not available';
     } else {
       $('.s', button).textContent = open
-        ? `${state.cfg.slotMinutes} min`
+        ? `${state.cfg.types?.[state.type]?.slotMinutes || state.cfg.slotMinutes} min`
         : slot.status === 'full'
           ? 'Booked'
           : 'Unavailable';
     }
   }
+
 
   function renderSlots(data) {
     const list = data[state.type] || [];
@@ -543,6 +538,7 @@
         : `Live: updated ${seconds}s ago`);
   }
 
+  
   function updateSummary() {
     const summary = $('#sel-summary');
     const button = $('#to-details');
@@ -568,16 +564,18 @@
     const bold = document.createElement('b');
     bold.textContent = typeLabel(state.type);
 
+    const duration = state.type === 'group'
+      ? (state.cfg.types?.[state.type]?.slotMinutes || 180)
+      : (state.cfg.types?.[state.type]?.slotMinutes || state.cfg.slotMinutes);
+
     summary.append(
       bold,
-      ` on ${dateShort(state.date)}, ${range(
-        state.selected,
-        state.cfg.slotMinutes
-      )}`
+      ` on ${dateShort(state.date)}, ${range(state.selected, duration)}`
     );
 
     button.disabled = false;
   }
+
 
     /* ---------- step 2: form ---------- */
 
@@ -611,9 +609,10 @@
 
     mobile: value =>
       !value ? 'Enter your mobile number.' :
-      !/^\+[1-9]\d{7,14}$/.test(normMobile(value))
-        ? 'Start with the country code, for example +91 98765 43210.'
+      !/^[6-9]\d{9}$/.test(normMobile(value))
+        ? 'Enter a valid 10-digit mobile number.'
         : '',
+
 
     level: value => value ? '' : 'Select your level.',
     goal: value => long(value, 'Tell us what you aim to achieve.'),
